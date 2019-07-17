@@ -7,36 +7,20 @@ using System.Threading.Tasks;
 
 namespace HomeworkCS2_1
 {
-    /// <summary>
-    /// Класс Звезда
-    /// </summary>
     class Star: BaseObject
     {
-        /// <summary>
-        /// Картинка Звезды
-        /// </summary>
-        public Image Img { get; set; }
-
-        /// <summary>
-        /// Конструктор класса Star
-        /// </summary>
-        /// <param name="pos">Начальная позиция</param>
-        /// <param name="dir">Дельта перемещения</param>
-        /// <param name="size">Размер</param>
-        public Star(Point pos, Point dir) : base(pos, dir) { }
-
-        /// <summary>
-        /// Метод отрисовки Звезды
-        /// </summary>
-        public override void Draw() => Game.Buffer.Graphics.DrawImage(Img, Pos.X, Pos.Y);
-
-        /// <summary>
-        /// Метод обновления позиции Звезды
-        /// </summary>
+        public Star(Point pos, Point dir, Size size) : base(pos, dir, size) { }
+        
+        public override void Draw()
+        {
+            Game.Buffer.Graphics.DrawLine(Pens.White, Pos.X, Pos.Y, Pos.X + Size.Width, Pos.Y + Size.Height);
+            Game.Buffer.Graphics.DrawLine(Pens.White, Pos.X + Size.Width, Pos.Y, Pos.X, Pos.Y + Size.Height);
+        }
+        
         public override void Update()
         {
-            Pos.X += Dir.X;
-            if (Pos.X < 0) Pos.X = Game.Width;
+            Pos.X = Pos.X + Dir.X;
+            if (Pos.X < 0) Pos.X = Game.Width + Size.Width;
         }
     }
 }
