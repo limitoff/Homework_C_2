@@ -8,7 +8,10 @@ namespace HomeworkCS2_1
     {
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
-        
+
+        private static Bullet _bullet;
+        private static Asteroid[] _asteroids;
+
         /// <summary>
         /// Ширина игрового поля
         /// </summary>
@@ -81,6 +84,9 @@ namespace HomeworkCS2_1
             Buffer.Graphics.DrawImage(Img, 0, 0, 800, 600);
             foreach (BaseObject obj in _objs)
                 obj.Draw();
+            foreach (Asteroid obj in _asteroids)
+                obj.Draw();
+            _bullet.Draw();
             Buffer.Render();
         }
 
@@ -91,6 +97,14 @@ namespace HomeworkCS2_1
         {
             foreach (BaseObject obj in _objs)
                 obj.Update();
+
+            foreach (BaseObject obj in _asteroids)
+            {
+                obj.Update();
+                if (obj.Collision(_bullet))
+                    System.Media.SystemSounds.Hand.Play();
+            }
+            _bullet.Update();
         }
 
         /// <summary>
@@ -98,21 +112,41 @@ namespace HomeworkCS2_1
         /// </summary>
         public static BaseObject[] _objs;
 
+
+
         /// <summary>
         /// Метод создания звёзд и их направление движения на игровом поле
         /// </summary>
         public static void Load()
         {
             _objs = new BaseObject[60];
+            _bullet = new Bullet(new Point(0, 200), new Point(5, 0));
+            _asteroids = new Asteroid[3];
+            var rnd = new Random();
+            
 
             for (int i = 0; i < _objs.Length / 6; i++)
-                _objs[i] = new RedDwarf(new Point(785, i * 50), new Point(-i, 0));
-
+            {
+                int r = rnd.Next(5, 50);
+                _objs[i] = new RedDwarf(new Point(1000, rnd.Next(0, Height)), new Point(-r, r));
+            }
             for (int i = _objs.Length / 6; i < _objs.Length / 3; i++)
-                _objs[i] = new YellowDwarf(new Point(785, (i - 8) * 45), new Point(-i, 0));
-
+            {
+                int r = rnd.Next(5, 50);
+                _objs[i] = new YellowDwarf(new Point(1000, rnd.Next(0, Height)), new Point(-r, r));
+            }
             for (int i = _objs.Length / 3; i < _objs.Length; i++)
-                _objs[i] = new WhiteDwarf(new Point(785, (i - 20) * 20), new Point(-i, 0));
+            {
+                int r = rnd.Next(5, 50);
+                _objs[i] = new WhiteDwarf(new Point(1000, rnd.Next(0, Height)), new Point(-r, r));
+
+            }
+            
+            for (var i = 0; i < _asteroids.Length; i++)
+            {
+                int r = rnd.Next(5, 50);
+                _asteroids[i] = new Asteroid(new Point(1000, rnd.Next(0, Height)), new Point(-r / 5, r)/*, new Size(r, r)*/);
+            }
         }
     }
 }

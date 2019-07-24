@@ -1,9 +1,23 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace HomeworkCS2_1
 {
-    class BaseObject
+    /// <summary>
+    /// Интерфейс определения столкновений Пули с Астероидом
+    /// </summary>
+    interface ICollision
     {
+        bool Collision(ICollision obj);
+        Rectangle Rect { get; }
+    }
+    abstract class BaseObject: ICollision
+    {
+        /// <summary>
+        /// Картинка объекта
+        /// </summary>
+        protected Image Img { get; set; }
+
         protected Point Pos;
         protected Point Dir;
         //protected Size Size;
@@ -14,32 +28,40 @@ namespace HomeworkCS2_1
         /// <param name="pos">Начальная позиция</param>
         /// <param name="dir">Дельта перемещения</param>
         /// <param name="size">Размер</param>
-        public BaseObject(Point pos, Point dir)
+        protected BaseObject(Point pos, Point dir)
         {
             Pos = pos;
             Dir = dir;
             //Size = size;
         }
-        
+
         /// <summary>
         /// Метод вывод объектов на экран.
         /// </summary>
-        public virtual void Draw()
-        {
-            //Game.Buffer.Graphics.DrawEllipse(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
-        }
-        
+        public abstract void Draw();
+
+        Random rnd = new Random();
+
         /// <summary>
         /// Метод изменения состояния объектов
         /// </summary>
         public virtual void Update()
         {
             Pos.X += Dir.X;
-            Pos.Y += Dir.Y;
-            if (Pos.X < 0) Dir.X = -Dir.X;
-            if (Pos.X > Game.Width) Dir.X = -Dir.X;
-            if (Pos.Y < 0) Dir.Y = -Dir.Y;
-            if (Pos.Y > Game.Height) Dir.Y = -Dir.Y;
+            if (Pos.X < -Img.Width) //0 - Img.Width
+            {
+                Pos.X = Game.Width;
+                Pos.Y = rnd.Next(Game.Height - Img.Height);
+            }
         }
+
+
+        /// <summary>
+        /// Метод определения столкновений Пули с Астероидом
+        /// </summary>
+        /// <param name="o">Объект</param>
+        /// <returns>True или False</returns>
+        public bool Collision(ICollision o) => o.Rect.IntersectsWith(this.Rect); //«Астероид» с использованием интерфейсов
+        public Rectangle Rect => new Rectangle(Pos, Img.Size);
     }
 }
