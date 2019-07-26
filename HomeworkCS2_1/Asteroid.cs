@@ -2,7 +2,7 @@
 using System.Drawing;
 
 namespace HomeworkCS2_1
-{
+{//++-
     /// <summary>
     /// Класс Астероид
     /// </summary>
@@ -13,9 +13,9 @@ namespace HomeworkCS2_1
         /// </summary>
         /// <param name="pos">Начальная позиция</param>
         /// <param name="dir">Дельта перемещения</param>
-        public Asteroid(Point pos, Point dir) : base(pos, dir)
+        public Asteroid(Point pos, Point dir, int power = 5) : base(pos, dir)
         {
-            Power = 3;
+            Power = power;
             Img = new Bitmap(@"..\..\Asteroid.png");
         }
 
@@ -32,7 +32,7 @@ namespace HomeworkCS2_1
             if (Pos.X < -Img.Width) //0 - Img.Width
             {
                 Pos.X = Game.Width;
-                Pos.Y = rnd.Next(Game.Height - Img.Height);
+                Pos.Y = rnd.Next(0, Game.Height - Img.Height);
             }
         }
 

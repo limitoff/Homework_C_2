@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 
 namespace HomeworkCS2_1
-{
+{//+
     /// <summary>
     /// Класс Тысячилетний Сокол (Ship)
     /// </summary>

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HomeworkCS2_1
-{
+{//+
     /// <summary>
     /// Класс Пуля
     /// </summary>
@@ -17,9 +17,9 @@ namespace HomeworkCS2_1
         /// </summary>
         /// <param name="pos">Начальная позиция</param>
         /// <param name="dis">Дельта перемещения</param>
-        public Bullet(Point pos, Point dis) : base(pos, dis)
+        public Bullet(Point pos, Point dis, int power = 1) : base(pos, dis)
         {
-            Power = 1;
+            Power = power;
             Img = new Bitmap(@"..\..\Bullet.png");
         }
 

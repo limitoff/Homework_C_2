@@ -8,11 +8,16 @@ using System.Threading.Tasks;
 namespace HomeworkCS2_1
 {
     class Logger
-    {
+    {//+
         public static Action<string> WriteMessage;
         public static void LogMessage(string msg)
         {
             WriteMessage(msg);
+        }
+
+        public static void LogToConsole(string message)
+        {
+            Console.WriteLine(message);
         }
     }
     public class FileLogger
@@ -25,7 +30,7 @@ namespace HomeworkCS2_1
         }
 
         public void DetachLog() => Logger.WriteMessage -= LogMessage;
-        
+
         private void LogMessage(string msg)
         {
             try

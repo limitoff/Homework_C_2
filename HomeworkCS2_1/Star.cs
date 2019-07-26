@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 
 namespace HomeworkCS2_1
-{
+{//++-
     /// <summary>
     /// Класс Звезда
     /// </summary>
@@ -28,7 +28,7 @@ namespace HomeworkCS2_1
             if (Pos.X < -Img.Width) //0 - Img.Width
             {
                 Pos.X = Game.Width;
-                Pos.Y = rnd.Next(Game.Height - Img.Height);
+                Pos.Y = rnd.Next(0, Game.Height - Img.Height);
             }
         }
     }

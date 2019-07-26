@@ -23,12 +23,9 @@ namespace HomeworkCS2_1
         /// Картинка объекта
         /// </summary>
         protected Image Img { get; set; }
-
         protected Point Pos;
         protected Point Dir;
-        //protected Size Size;
         protected int Power { get; set; }
-
         protected Random rnd = new Random();
 
         /// <summary>
@@ -41,19 +38,22 @@ namespace HomeworkCS2_1
         {
             Pos = pos;
             Dir = dir;
-            //Size = size;
         }
 
         /// <summary>
         /// Метод вывод объектов на экран.
         /// </summary>
         public abstract void Draw();
-        
         /// <summary>
         /// Метод изменения состояния объектов
         /// </summary>
         public abstract void Update();
-        
+
+        //public void Respawn(int x)
+        //{
+        //    this.Pos.X = x;
+        //}
+
         /// <summary>
         /// Метод определения столкновений Пули с Астероидом
         /// </summary>

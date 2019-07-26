@@ -63,6 +63,13 @@ namespace HomeworkCS2_1
         /// <param name="form"></param>
         public static void Init(Form form)
         {
+            FileLogger fileLogger = new FileLogger("log.txt");
+            Logger.WriteMessage += Logger.LogToConsole;
+
+            if (form.Width < 0 || form.Width > 1000 || form.Height < 0 || form.Height > 1000)
+                throw new ArgumentOutOfRangeException();
+
+
             // Графическое устройство для вывода графики
             Graphics g;
             // Предоставляет доступ к главному буферу графического контекста для текущего приложения
@@ -90,7 +97,7 @@ namespace HomeworkCS2_1
         private static Timer _timer = new Timer();
         public static Random rnd = new Random();
 
-        private static Timer rndTimer = new Timer() { Interval = 3000 };
+        //private static Timer rndTimer = new Timer() { Interval = 3000 };
 
         /// <summary>
         /// Обработчик таймера
@@ -154,8 +161,8 @@ namespace HomeworkCS2_1
         public static void Load()
         {
             _objs = new BaseObject[60];
-            _bullet = new Bullet(new Point(0, 200), new Point(5, 0));
-            _asteroids = new Asteroid[3];
+            //_bullet = new Bullet(new Point(0, 200), new Point(5, 0));
+            _asteroids = new Asteroid[10];
             _ship = new MillenniumFalcon(new Point(10, 400), new Point(5, 5));
 
             var rnd = new Random();
@@ -174,7 +181,6 @@ namespace HomeworkCS2_1
             {
                 int r = rnd.Next(5, 50);
                 _objs[i] = new WhiteDwarf(new Point(1000, rnd.Next(0, Height)), new Point(-r, r));
-
             }
             
             for (var i = 0; i < _asteroids.Length; i++)
@@ -191,7 +197,7 @@ namespace HomeworkCS2_1
         /// <param name="e"></param>
         private static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.ControlKey) _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(4, 0));
+            if (e.KeyCode == Keys.ControlKey) _bullet = new Bullet(new Point(_ship.Rect.X + 100, _ship.Rect.Y + 10), new Point(4, 0));
             if (e.KeyCode == Keys.Up) _ship.Up();
             if (e.KeyCode == Keys.Down) _ship.Down();
         }
