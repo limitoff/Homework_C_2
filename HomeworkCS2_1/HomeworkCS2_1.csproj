@@ -45,16 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AidKit.cs" />
     <Compile Include="Asteroid.cs" />
     <Compile Include="BaseObject.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="MillenniumFalcon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedDwarf.cs" />
     <Compile Include="Star.cs" />
-    <Compile Include="WhiteDwarf.cs" />
-    <Compile Include="YellowDwarf.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

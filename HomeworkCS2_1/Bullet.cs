@@ -17,7 +17,11 @@ namespace HomeworkCS2_1
         /// </summary>
         /// <param name="pos">Начальная позиция</param>
         /// <param name="dis">Дельта перемещения</param>
-        public Bullet(Point pos, Point dis) : base(pos, dis) => Img = new Bitmap(@"..\..\Bullet.png");
+        public Bullet(Point pos, Point dis) : base(pos, dis)
+        {
+            Power = 1;
+            Img = new Bitmap(@"..\..\Bullet.png");
+        }
 
         /// <summary>
         /// Метод отрисовки Пули
@@ -27,9 +31,6 @@ namespace HomeworkCS2_1
         /// <summary>
         /// Метод изменения состояния объектов
         /// </summary>
-        public override void Update()
-        {
-            Pos.X += 10;
-        }
+        public override void Update() => Pos.X += 10;
     }
 }

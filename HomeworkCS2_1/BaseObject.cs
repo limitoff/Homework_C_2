@@ -3,14 +3,20 @@ using System.Drawing;
 
 namespace HomeworkCS2_1
 {
+    public delegate void Message();
+
     /// <summary>
     /// Интерфейс определения столкновений Пули с Астероидом
     /// </summary>
-    interface ICollision
+    public interface ICollision
     {
         bool Collision(ICollision obj);
         Rectangle Rect { get; }
     }
+
+    /// <summary>
+    /// Класс Базовый объект
+    /// </summary>
     abstract class BaseObject: ICollision
     {
         /// <summary>
@@ -21,6 +27,9 @@ namespace HomeworkCS2_1
         protected Point Pos;
         protected Point Dir;
         //protected Size Size;
+        protected int Power { get; set; }
+
+        protected Random rnd = new Random();
 
         /// <summary>
         /// Конструктор класса Базовый объект
@@ -39,23 +48,12 @@ namespace HomeworkCS2_1
         /// Метод вывод объектов на экран.
         /// </summary>
         public abstract void Draw();
-
-        Random rnd = new Random();
-
+        
         /// <summary>
         /// Метод изменения состояния объектов
         /// </summary>
-        public virtual void Update()
-        {
-            Pos.X += Dir.X;
-            if (Pos.X < -Img.Width) //0 - Img.Width
-            {
-                Pos.X = Game.Width;
-                Pos.Y = rnd.Next(Game.Height - Img.Height);
-            }
-        }
-
-
+        public abstract void Update();
+        
         /// <summary>
         /// Метод определения столкновений Пули с Астероидом
         /// </summary>
