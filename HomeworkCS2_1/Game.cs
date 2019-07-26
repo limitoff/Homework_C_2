@@ -18,11 +18,18 @@ namespace HomeworkCS2_1
         /// Массив объектов
         /// </summary>
         public static BaseObject[] _objs;
+        /// <summary>
+        /// Массив аптечек
+        /// </summary>
+        public static AidKit[] _aidKits;
+
+
+
 
         /// <summary>
         /// Объект ship
         /// </summary>
-        private static MillenniumFalcon _ship = new MillenniumFalcon(new Point(10, 400), new Point(5, 5));
+        private static MillenniumFalcon _ship;
 
         /// <summary>
         /// Ширина игрового поля
@@ -69,10 +76,10 @@ namespace HomeworkCS2_1
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
             
             Load();
-            // Таймер и обработчик таймера, в котором заставим вызываться Draw и Update.
-            //Timer timer = new Timer { Interval = 100 };
-            //timer.Start();
-            //timer.Tick += Timer_Tick;
+            //Таймер и обработчик таймера, в котором заставим вызываться Draw и Update.
+            Timer timer = new Timer { Interval = 100 };
+            timer.Start();
+            timer.Tick += Timer_Tick;
 
             // Обработчики событий на KeyDown
             form.KeyDown += Form_KeyDown;
@@ -81,8 +88,9 @@ namespace HomeworkCS2_1
         }
 
         private static Timer _timer = new Timer();
-        public static Random Rnd = new Random();
+        public static Random rnd = new Random();
 
+        private static Timer rndTimer = new Timer() { Interval = 3000 };
 
         /// <summary>
         /// Обработчик таймера
@@ -138,18 +146,8 @@ namespace HomeworkCS2_1
                 System.Media.SystemSounds.Asterisk.Play();
                 if (_ship.Energy <= 0) _ship?.Die();
             }
-            
-            //foreach (BaseObject obj in _asteroids)
-            //{
-            //    obj.Update();
-            //    if (obj.Collision(_bullet))
-            //        System.Media.SystemSounds.Hand.Play();
-            //}
         }
-
-
-
-
+        
         /// <summary>
         /// Метод создания звёзд и их направление движения на игровом поле
         /// </summary>
@@ -158,9 +156,10 @@ namespace HomeworkCS2_1
             _objs = new BaseObject[60];
             _bullet = new Bullet(new Point(0, 200), new Point(5, 0));
             _asteroids = new Asteroid[3];
+            _ship = new MillenniumFalcon(new Point(10, 400), new Point(5, 5));
+
             var rnd = new Random();
             
-
             for (int i = 0; i < _objs.Length / 6; i++)
             {
                 int r = rnd.Next(5, 50);
@@ -181,7 +180,7 @@ namespace HomeworkCS2_1
             for (var i = 0; i < _asteroids.Length; i++)
             {
                 int r = rnd.Next(5, 50);
-                _asteroids[i] = new Asteroid(new Point(1000, rnd.Next(0, Height)), new Point(-r / 5, r)/*, new Size(r, r)*/);
+                _asteroids[i] = new Asteroid(new Point(1000, rnd.Next(0, Height)), new Point(-r / 5, r));
             }
         }
 
@@ -206,6 +205,5 @@ namespace HomeworkCS2_1
             Buffer.Graphics.DrawString("The End", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.White, 200, 100);
             Buffer.Render();
         }
-
     }
 }

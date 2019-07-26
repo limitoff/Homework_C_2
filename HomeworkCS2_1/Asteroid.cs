@@ -3,27 +3,18 @@ using System.Drawing;
 
 namespace HomeworkCS2_1
 {
-    //public interface IComparable<T>
-    //{
-    //    int CompareTo(T obj);
-    //}
-    
     /// <summary>
     /// Класс Астероид
     /// </summary>
     class Asteroid: BaseObject, ICloneable, IComparable<Asteroid>
     {
-        
-        //protected Size Size { get; set; }
-
         /// <summary>
         /// Конструктор класса Астероид
         /// </summary>
         /// <param name="pos">Начальная позиция</param>
         /// <param name="dir">Дельта перемещения</param>
-        public Asteroid(Point pos, Point dir/*, Size size*/) : base(pos, dir)
+        public Asteroid(Point pos, Point dir) : base(pos, dir)
         {
-            //Size = size;
             Power = 3;
             Img = new Bitmap(@"..\..\Asteroid.png");
         }
